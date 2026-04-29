@@ -29,17 +29,27 @@
         .nav-link {
             color: white;
             text-decoration: none;
+            font-weight: 500;
         }
 
         .nav-link:hover {
             color: gold;
+        }
+
+        .gold-button {
+            background-color: gold;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- 🔥 NAVBAR GLOBAL -->
+    <!--NAVBAR Global-->
     <div class="navbar">
 
         <a href="/" class="logo">E-commerce</a>
@@ -52,10 +62,12 @@
 
             <a href="/cart/" class="nav-link">Cart</a>
 
-        </div>
+            <button class="gold-button">Meu Botão</button>
 
+        </div>
     </div>
 
+    <!--Content of page -->
     {% block content %}
     {% endblock %}
 
