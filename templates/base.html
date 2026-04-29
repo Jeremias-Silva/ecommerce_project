@@ -1,109 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Django E-Commerce</title>
+    <title>E-commerce</title>
 
     <style>
-        :root {
-            --primary: #0A1F44;     /* azul dark */
-            --gold: #D4AF37;        /* amarelo gold */
-            --bg: #F5F7FA;
-            --text: #1A1A1A;
-            --white: #FFFFFF;
-        }
-
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            background: var(--bg);
-            color: var(--text);
+            background-color: #0b1a2e;
+            color: white;
+            font-family: Arial;
         }
 
-        /* NAVBAR */
-        nav {
-            background: var(--primary);
-            padding: 15px 30px;
+        .navbar {
+            padding: 15px;
+            background: #111;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 20px;
         }
 
-        nav .logo {
-            color: var(--gold);
+        .logo {
+            color: gold;
             font-weight: bold;
-            font-size: 18px;
-        }
-
-        nav .links a {
-            color: var(--white);
-            margin-left: 20px;
             text-decoration: none;
-            transition: 0.3s;
+            font-size: 20px;
         }
 
-        nav .links a:hover {
-            color: var(--gold);
-        }
-
-        /* CONTAINER */
-        .container {
-            padding: 30px;
-        }
-
-        /* CARD */
-        .card {
-            background: var(--white);
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-        }
-
-        /* BUTTON */
-        .btn {
-            display: inline-block;
-            padding: 10px 16px;
-            background: var(--gold);
-            color: #000;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            opacity: 0.85;
-        }
-
-        .btn-danger {
-            background: #c0392b;
+        .nav-link {
             color: white;
+            text-decoration: none;
         }
 
+        .gold-button {
+            background: gold;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 20px;
+        }
     </style>
 </head>
 
 <body>
 
-<nav>
-    <div class="logo">E-Commerce</div>
+    <!-- NavBar -->
+  <div class="navbar">
+    <a href="/" class="logo">E-commerce</a>
 
-    <div class="links">
-        <a href="/">Products</a>
-        <a href="/cart/">Cart</a>
-        <a href="/login/">Login</a>
+    <div style="display:flex; gap:15px;">
+        <a href="/products/" class="nav-link">Products</a>
+        <a href="/login/" class="nav-link">Login</a>
+        <a href="/cart/" class="nav-link">Cart</a>
     </div>
-</nav>
-
-<div class="container">
-    {% block content %}
-    {% endblock %}
 </div>
+
+    <!-- Global Button -->
+    <div style="padding: 20px;">
+        <button class="gold-button">BOCA STORE</button>
+    </div>
+
+    <!-- Page content -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
 
 </body>
 </html>

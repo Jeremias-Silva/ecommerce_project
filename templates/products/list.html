@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Products</h2>
+
+<a href="/create/" class="btn">Add Product</a>
+
+{% for product in products %}
+<div class="card">
+    <h3>{{ product.name }}</h3>
+    <p>${{ product.price }}</p>
+
+    <a href="/update/{{ product.id }}/" class="btn">Edit</a>
+    <a href="/delete/{{ product.id }}/" class="btn btn-danger">Delete</a>
+</div>
+{% empty %}
+<p>No products yet</p>
+{% endfor %}
+
+{% endblock %}

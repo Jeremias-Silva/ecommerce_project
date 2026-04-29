@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-commerce</title>
+
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: #0d1b2a;
+        }
+
+        .logo {
+            color: gold;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: gold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🔥 NAVBAR GLOBAL -->
+    <div class="navbar">
+
+        <a href="/" class="logo">E-commerce</a>
+
+        <div class="nav-links">
+
+            <a href="/products/" class="nav-link">Products</a>
+
+            <a href="/login/" class="nav-link">Login</a>
+
+            <a href="/cart/" class="nav-link">Cart</a>
+
+        </div>
+
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
