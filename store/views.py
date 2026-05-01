@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from .forms import ProductForm
 
-# READ (listar)
+# HOME
+def home(request):
+    return render(request, "store/home.html")
+
+# LISTAR PRODUTOS
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'products/list.html', {'products': products})
@@ -30,22 +34,14 @@ def product_delete(request, id):
     product.delete()
     return redirect('products')
 
-def product_list(request):
-    return render(request, 'products.html')
+# CART
+def cart(request):
+    return render(request, "cart.html")
 
-def home(request):
-    return render(request, 'store/home.html')
-
-from django.shortcuts import render
-
-def home(request):
-    return render(request, "home.html")
-
-def products(request):
-    return render(request, "products.html")
-
+# LOGIN
 def login_view(request):
     return render(request, "login.html")
 
-def cart(request):
-    return render(request, "cart.html")
+def product_detail(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, 'products/detail.html', {'product': product})
