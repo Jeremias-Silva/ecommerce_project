@@ -1,16 +1,310 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    {% extends "base.html" %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    <h1>Welcome to Main Page</h1>
+
+<!-- TEXT SECTION -->
+<div style="
+    text-align:center;
+    max-width:900px;
+    margin:40px auto 20px auto;
+    padding:0 15px;
+">
+    <h1 style="font-size:clamp(24px, 4vw, 42px); margin-bottom:10px; font-family:'Impact','Arial Black',sans-serif;">
+        Welcome to BOCAMANIA!
+    </h1>
+    <br>
+    <h2 style="font-size:clamp(18px, 3vw, 28px); font-weight:400; line-height:1.6;">
+        <p>
+            BOCAMANIA is an e-commerce created for true fans of one of the greatest football clubs in the world — Boca Juniors, the pride of the Xeneize Nation.
+
+            Here you’ll find products that represent passion, history, and the unstoppable spirit of La Bombonera. This is more than a store — it’s a way to wear your identity.
+
+            Explore the page and feel the energy of being Xeneize.
+
+            And don’t forget to check out the video below — it brings the passion of Boca to life in a way you don’t want to miss.
+            <br>
+            <br>The ultimate Boca Juniors experience!
+        </p>
+    </h2>
+</div>
+
+<!-- VIDEO CONTAINER -->
+<div style="
+    position:relative;
+    width:80%;
+    margin:0 auto;
+    padding:8px;
+    background-color:yellow;
+    border-radius:10px;
+">
+
+    <div style="
+        position:relative;
+        background-color:#0b1f3a;
+        padding:8px;
+        border-radius:8px;
+    ">
+
+        <!-- CONTROL PANEL -->
+        <div class="control-panel">
+
+            <!-- PLAY / PAUSE -->
+            <button onclick="playVideo(this)" class="control-btn play-btn">▶</button>
+            <button onclick="pauseVideo(this)" class="control-btn pause-btn">❚❚</button>
+
+            <!-- ⏹ STOP -->
+            <button onclick="stopVideo(this)" class="control-btn">⏹</button>
+
+            <!-- REWIND / FORWARD -->
+            <button onclick="rewindVideo(this)" class="control-btn">⏪</button>
+            <button onclick="forwardVideo(this)" class="control-btn">⏩</button>
+
+            <!-- VOLUME -->
+            <button onclick="increaseVolume(this)" class="control-btn">＋</button>
+            <button onclick="decreaseVolume(this)" class="control-btn">－</button>
+
+            <!-- MUTE -->
+            <button onclick="toggleMute(this)" class="control-btn mute-btn">MUTE</button>
+
+        </div>
+
+        <!-- LOGO -->
+        <img src="{% static 'store/images/boca1.png' %}"
+             class="rotating-logo"
+             style="
+                position:absolute;
+                top:9px;
+                right:9px;
+                width:70px;
+                z-index:9;
+             ">
+
+        <!-- VOLUME HUD -->
+        <div id="volumeContainer" class="volume-container">
+            <div class="volume-bg-text">BOCA</div>
+            <div class="volume-bar">
+                <div id="volumeFill"></div>
+            </div>
+        </div>
+
+        <!-- VIDEO -->
+        <video id="video"
+               autoplay
+               muted
+               loop
+               playsinline
+               preload="auto"
+               style="width:100%; display:block; border-radius:5px;">
+            <source src="/static/store/videos/boca.mp4" type="video/mp4">
+        </video>
+
+    </div>
+</div>
+
+<!-- LINK -->
+<div style="text-align:center; margin-top:30px;">
+    <a href="/products/" style="
+        display:inline-block;
+        font-family:'Impact','Arial Black',sans-serif;
+        font-size:clamp(18px, 2.5vw, 28px);
+        color:#FFD700;
+        text-decoration:none;
+        background-color:#0b1f3a;
+        padding:12px 25px;
+        border:2px solid #FFD700;
+        border-radius:6px;
+    ">
+        SEE PRODUCTS
+    </a>
+</div>
+
+<!-- SCRIPT -->
+<script>
+const video = document.getElementById("video");
+
+let lastVolume = 0.5;
+let hideTimer;
+
+window.addEventListener("load", () => {
+    video.volume = lastVolume;
+    updateVolumeUI();
+});
+
+function playVideo(btn){
+    video.muted = false;
+    video.play();
+    setActive(btn);
+}
+
+function pauseVideo(btn){
+    video.pause();
+    setActive(btn);
+}
+
+function stopVideo(btn){
+    video.pause();
+    video.currentTime = 0;
+    document.querySelectorAll('.play-btn, .pause-btn')
+        .forEach(b => b.classList.remove('active'));
+    flash(btn);
+}
+
+function rewindVideo(btn){
+    video.currentTime = Math.max(0, video.currentTime - 10);
+    flash(btn);
+}
+
+function forwardVideo(btn){
+    video.currentTime = Math.min(video.duration, video.currentTime + 10);
+    flash(btn);
+}
+
+function increaseVolume(btn){
+    lastVolume = Math.min(1, lastVolume + 0.1);
+    video.volume = lastVolume;
+    video.muted = false;
+    updateVolumeUI();
+    showVolumeBar();
+    flash(btn);
+}
+
+function decreaseVolume(btn){
+    lastVolume = Math.max(0, lastVolume - 0.1);
+    video.volume = lastVolume;
+    updateVolumeUI();
+    showVolumeBar();
+    flash(btn);
+}
+
+function toggleMute(btn){
+    video.muted = !video.muted;
+    btn.classList.toggle("active");
+    updateVolumeUI();
+    showVolumeBar();
+}
+
+function updateVolumeUI(){
+    const fill = document.getElementById("volumeFill");
+    const level = video.muted ? 0 : video.volume;
+    fill.style.height = (level * 100) + "%";
+}
+
+function showVolumeBar(){
+    const container = document.getElementById("volumeContainer");
+    container.classList.add("show");
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+        container.classList.remove("show");
+    }, 3000);
+}
+
+function setActive(btn){
+    document.querySelectorAll('.control-btn').forEach(b=>{
+        b.classList.remove('active');
+    });
+    btn.classList.add('active');
+}
+
+function flash(btn){
+    btn.classList.add("active");
+    setTimeout(()=>btn.classList.remove("active"),200);
+}
+</script>
+
+<!-- STYLE -->
+<style>
+.control-panel{
+    position:absolute;
+    top:10px;
+    left:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    background:rgba(11,31,58,0.85);
+    padding:10px;
+    border:2px solid #FFD700;
+    border-radius:10px;
+}
+
+.control-btn{
+    background-color:#0b1f3a;
+    color:yellow;
+    border:2px solid yellow;
+    padding:10px 14px;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:5px;
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:15px;
+    transition:0.2s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.control-btn:hover{
+    box-shadow:0 0 10px yellow, 0 0 20px yellow;
+}
+
+.control-btn.active{
+    background:yellow;
+    color:#0b1f3a;
+}
+
+@keyframes spin{
+    from{transform:rotate(0);}
+    to{transform:rotate(360deg);}
+}
+
+.rotating-logo{
+    animation:spin 6s linear infinite;
+}
+
+.volume-container{
+    position:absolute;
+    top:80px;
+    right:20px;
+    width:60px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    opacity:0;
+    transform:translateY(10px);
+    transition:all 0.6s ease;
+}
+
+.volume-container.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.volume-bg-text{
+    position:absolute;
+    top:40px;
+    font-size:22px;
+    font-family:'Impact','Arial Black',sans-serif;
+    color:rgba(255,215,0,0.15);
+}
+
+.volume-bar{
+    width:18px;
+    height:140px;
+    background:#0b1f3a;
+    border:2px solid #FFD700;
+    border-radius:8px;
+    overflow:hidden;
+    position:relative;
+}
+
+#volumeFill{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:50%;
+    background:#FFD700;
+    transition:0.2s;
+}
+</style>
+
 {% endblock %}
-    <a href="/products/">See produtcs</a>
-</body>
-</html>
-
-
