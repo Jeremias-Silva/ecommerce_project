@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="
+    max-width:900px;
+    margin:40px auto;
+    padding:30px;
+    background:#0b1f3a;
+    border-radius:12px;
+    border:1px solid rgba(255,215,0,0.3);
+">
+
+    <h1 style="
+        font-family:'Bebas Neue';
+        font-size:42px;
+        color:#FFD700;
+        text-align:center;
+        margin-bottom:30px;
+    ">
+        Welcome to your Account
+    </h1>
+
+    <!-- GRID -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;">
+
+        <!-- ORDERS -->
+        <div style="padding:20px; background:#122a4a; border-radius:10px;">
+            <h3 style="color:#FFD700;">🛒 My Orders</h3>
+            <p style="color:white;">View your purchase history</p>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div style="padding:20px; background:#122a4a; border-radius:10px;">
+            <h3 style="color:#FFD700;">🔔 News</h3>
+            <p style="color:white;">Latest products & offers</p>
+        </div>
+
+        <!-- MATCHES -->
+        <div style="padding:20px; background:#122a4a; border-radius:10px;">
+            <h3 style="color:#FFD700;">⚽ Boca Matches</h3>
+            <p style="color:white;">Upcoming games & schedule</p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
