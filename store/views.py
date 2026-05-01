@@ -35,7 +35,6 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect('/account/')  # 👈 dashboard
-
         else:
             return render(request, "login.html", {
                 "error": "Invalid credentials"
@@ -44,7 +43,7 @@ def login_view(request):
     return render(request, "login.html")
 
 
-# 👤 ACCOUNT DASHBOARD
+# 👤 DASHBOARD (ACCOUNT)
 @login_required
 def account_dashboard(request):
     return render(request, 'store/account.html')
@@ -58,7 +57,7 @@ def product_list(request):
 
 # ➕ CREATE PRODUCT
 def product_create(request):
-    form = ProductForm(request.POST or None)
+    form = ProductForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
         return redirect('products')
@@ -68,7 +67,7 @@ def product_create(request):
 # ✏️ UPDATE PRODUCT
 def product_update(request, id):
     product = get_object_or_404(Product, id=id)
-    form = ProductForm(request.POST or None, instance=product)
+    form = ProductForm(request.POST or None, request.FILES or None, instance=product)
     if form.is_valid():
         form.save()
         return redirect('products')
@@ -82,12 +81,12 @@ def product_delete(request, id):
     return redirect('products')
 
 
-# 🛒 CART
-def cart(request):
-    return render(request, "cart.html")
-
-
 # 📦 PRODUCT DETAIL
 def product_detail(request, id):
     product = get_object_or_404(Product, id=id)
     return render(request, 'products/detail.html', {'product': product})
+
+
+# 🛒 CART
+def cart(request):
+    return render(request, "cart.html")
