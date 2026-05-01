@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="
+    max-width:420px;
+    margin:60px auto;
+    padding:35px;
+    background:#0b1f3a;
+    border-radius:12px;
+    border:1px solid rgba(255,215,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+">
+
+    <h2 style="
+        font-family:'Bebas Neue', sans-serif;
+        font-size:40px;
+        letter-spacing:2px;
+        color:#FFD700;
+        text-align:center;
+        margin-bottom:25px;
+    ">
+        Create Account
+    </h2>
+
+    <form method="POST" style="display:flex; flex-direction:column; gap:18px;">
+        {% csrf_token %}
+
+        <!-- USERNAME -->
+        <div>
+            <label style="font-size:18px; color:#FFD700;">Username</label>
+            {{ form.username }}
+        </div>
+
+        <!-- EMAIL -->
+        <div>
+            <label style="font-size:18px; color:#FFD700;">Email</label>
+            {{ form.email }}
+        </div>
+
+        <!-- CITY -->
+        <div>
+            <label style="font-size:18px; color:#FFD700;">City</label>
+            {{ form.city }}
+        </div>
+
+        <!-- ADDRESS -->
+        <div>
+            <label style="font-size:18px; color:#FFD700;">Address</label>
+            {{ form.address }}
+        </div>
+
+        <!-- PHONE -->
+        <div>
+            <label style="font-size:18px; color:#FFD700;">Phone</label>
+            {{ form.phone }}
+        </div>
+
+        <!-- PASSWORD -->
+        <div>
+            <label style="font-size:18px; color:#FFD700;">Password</label>
+            {{ form.password1 }}
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div>
+            <label style="font-size:18px; color:#FFD700;">Confirm Password</label>
+            {{ form.password2 }}
+        </div>
+
+        <!-- BUTTON -->
+        <button type="submit" style="
+            margin-top:10px;
+            padding:14px;
+            font-family:'Bebas Neue', sans-serif;
+            font-size:22px;
+            letter-spacing:2px;
+            background:#FFD700;
+            color:#0b1f3a;
+            border:2px solid #FFD700;
+            border-radius:6px;
+            cursor:pointer;
+            transition:0.2s;
+        "
+        onmouseover="this.style.boxShadow='0 0 12px #FFD700'"
+        onmouseout="this.style.boxShadow='none'">
+            Register
+        </button>
+
+    </form>
+
+</div>
+
+<!-- INPUT STYLE -->
+<style>
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+
+    background: #122a4a;
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 6px;
+
+    color: #FFD700;
+    font-size: 17px; /* 👈 AUMENTADO */
+    outline: none;
+
+    transition: 0.2s;
+}
+
+input::placeholder {
+    color: rgba(255,215,0,0.5);
+    font-size: 15px; /* 👈 MELHOR LEITURA */
+}
+
+input:focus {
+    border: 1px solid #FFD700;
+    box-shadow: 0 0 8px rgba(255,215,0,0.3);
+}
+</style>
+
+{% endblock %}
