@@ -3,68 +3,92 @@
 <head>
     <title>E-commerce</title>
 
+    <!-- Boca-style typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
-            background-color: #0b1a2e;
             color: white;
-            font-family: Arial;
+
+            background: radial-gradient(
+                circle at top,
+                #122a4a 0%,
+                #0b1a2e 45%,
+                #070f1c 100%
+            );
+
+            font-family: "Bebas Neue", "DIN Condensed", Arial, sans-serif;
         }
 
+        /* NAVBAR */
         .navbar {
             padding: 15px;
-            background: #111;
+            background: rgba(10, 18, 35, 0.9);
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: space-between;
+            backdrop-filter: blur(6px);
         }
 
+        /* LOGO */
         .logo {
             color: gold;
             font-weight: bold;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 38px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* NAV LINKS */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
 
         .nav-link {
             color: white;
             text-decoration: none;
+            font-size: 18px;
+            padding: 6px 10px;
+            transition: 0.2s;
         }
 
-        .gold-button {
-            background: gold;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
+        .nav-link:hover {
+            color: gold;
+            transform: scale(1.05);
         }
 
+        /* CONTENT */
         .content {
             padding: 20px;
+            background: rgba(10, 18, 35, 0.75);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 14px;
+            margin: 20px;
+            backdrop-filter: blur(4px);
         }
     </style>
 </head>
 
 <body>
 
-    <!-- NavBar -->
-  <div class="navbar">
-    <a href="/" class="logo">E-commerce</a>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="/" class="logo">BOCA MANIA E-COMMERCE</a>
 
-    <div style="display:flex; gap:15px;">
-        <a href="/products/" class="nav-link">Products</a>
-        <a href="/login/" class="nav-link">Login</a>
-        <a href="/cart/" class="nav-link">Cart</a>
-    </div>
-</div>
-
-    <!-- Global Button -->
-    <div style="padding: 20px;">
-        <button class="gold-button">BOCA STORE</button>
+        <div class="nav-links">
+            <a href="/register/" class="nav-link">Register</a>
+            <a href="/login/" class="nav-link">Login</a>
+            <a href="/products/" class="nav-link">Products</a>
+            <a href="/cart/" class="nav-link">Cart</a>
+            <a href="/history/" class="nav-link">History</a>
+        </div>
     </div>
 
-    <!-- Page content -->
+    <!-- CONTENT -->
     <div class="content">
         {% block content %}{% endblock %}
     </div>
