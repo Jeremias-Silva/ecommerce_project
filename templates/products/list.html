@@ -3,15 +3,31 @@
 {% block content %}
 <h2>Products</h2>
 
-<a href="/create/" class="btn">Add Product</a>
+<a href="/products/create/" class="btn">Add Product</a>
 
 {% for product in products %}
 <div class="card">
-    <h3>{{ product.name }}</h3>
+
+    <!-- IMAGEM -->
+    {% if product.image %}
+        <img src="{{ product.image.url }}" width="200">
+    {% else %}
+        <p>Sem imagem</p>
+    {% endif %}
+
+    <!-- NOME COM LINK -->
+    <h3>
+        <a href="{% url 'product_detail' product.id %}">
+            {{ product.name }}
+        </a>
+    </h3>
+
     <p>${{ product.price }}</p>
 
-    <a href="/update/{{ product.id }}/" class="btn">Edit</a>
-    <a href="/delete/{{ product.id }}/" class="btn btn-danger">Delete</a>
+    <!-- BOTÕES -->
+    <a href="/products/update/{{ product.id }}/" class="btn">Edit</a>
+    <a href="/products/delete/{{ product.id }}/" class="btn btn-danger">Delete</a>
+
 </div>
 {% empty %}
 <p>No products yet</p>
